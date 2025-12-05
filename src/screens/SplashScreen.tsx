@@ -1,49 +1,26 @@
-import React, { useCallback, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { Video, AVPlaybackStatus } from 'expo-av';
 import { RootStackParamList } from '../navigation/RootNavigator';
 
 const SplashScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [hasError, setHasError] = useState(false);
+  const opacity = useRef(new Animated.Value(0)).current;
 
-  const handleStatusUpdate = useCallback(
-    (status: AVPlaybackStatus) => {
-      if (!status.isLoaded) {
-        if ('error' in status && status.error) {
-          setHasError(true);
-        }
-        return;
-      }
-
-      if (status.didJustFinish) {
-        navigation.replace('ProfileSelection');
-      }
-    },
-    [navigation]
-  );
-
-  const handleError = useCallback(() => setHasError(true), []);
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 1200,
+      useNativeDriver: true
+    }).start(() => {
+      setTimeout(() => navigation.replace('ProfileSelection'), 600);
+    });
+  }, [navigation, opacity]);
 
   return (
     <View style={styles.container}>
-      {hasError ? (
-        <Text style={styles.fallbackText}>EthniKonnect</Text>
-      ) : (
-        <Video
-          style={[StyleSheet.absoluteFillObject, styles.video]}
-          source={require('../Animated_Logo_Splash_Screen_Video.mp4')}
-          shouldPlay
-          isMuted={false}
-          resizeMode="contain"
-          isLooping={false}
-          useNativeControls={false}
-          onError={handleError}
-          onPlaybackStatusUpdate={handleStatusUpdate}
-        />
-      )}
+      <Animated.Text style={[styles.logo, { opacity }]}>EthniKonnect</Animated.Text>
     </View>
   );
 };
@@ -55,10 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  video: {
-    backgroundColor: 'transparent'
-  },
-  fallbackText: {
+  logo: {
     fontSize: 36,
     fontWeight: '700',
     color: '#e2e8f0',

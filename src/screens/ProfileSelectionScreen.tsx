@@ -30,7 +30,7 @@ const ProfileSelectionScreen: React.FC = () => {
     if (id === 'parent') {
       navigation.navigate('ParentRoot');
     } else {
-      navigation.navigate('KidsHome', { profileName: name });
+      navigation.navigate('KidsHome', { childName: name });
     }
   };
 
