@@ -3,13 +3,13 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../navigation/RootNavigator';
-import { findChapterById, findModuleByChapterId } from '../data/modules';
+import { findChapterById, findModuleById } from '../data/modules';
 
 const ChapterScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Chapter'>>();
-  const chapter = findChapterById(route.params.chapterId);
-  const module = findModuleByChapterId(route.params.chapterId);
+  const module = findModuleById(route.params.moduleId);
+  const chapter = findChapterById(route.params.moduleId, route.params.chapterId);
 
   if (!module || !chapter) {
     return (
@@ -41,7 +41,13 @@ const ChapterScreen: React.FC = () => {
 
         <TouchableOpacity
           style={styles.quizButton}
-          onPress={() => navigation.navigate('Quiz', { chapterId: chapter.id })}
+          onPress={() =>
+            navigation.navigate('Quiz', {
+              moduleId: module.id,
+              chapterId: chapter.id,
+              childName: route.params.childName
+            })
+          }
         >
           <Text style={styles.quizButtonText}>Test your quotient</Text>
         </TouchableOpacity>
