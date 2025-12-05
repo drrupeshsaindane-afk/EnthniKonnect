@@ -37,6 +37,10 @@ const RootNavigator: React.FC = () => {
       >
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ProfileSelection" component={ProfileSelectionScreen} options={{ headerShown: false }} />
+        screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#0f172a' } }}
+      >
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="ProfileSelection" component={ProfileSelectionScreen} />
         <Stack.Screen name="ParentRoot" component={ParentRootScreen} />
         <Stack.Screen name="ParentMain" component={ParentMainScreen} />
         <Stack.Screen name="KidsHome" component={KidsHomeScreen} />
