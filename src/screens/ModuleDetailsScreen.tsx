@@ -32,7 +32,13 @@ const ModuleDetailsScreen: React.FC = () => {
               key={chapter.id}
               style={styles.card}
               activeOpacity={0.85}
-              onPress={() => navigation.navigate('Chapter', { chapterId: chapter.id })}
+              onPress={() =>
+                navigation.navigate('Chapter', {
+                  moduleId: module.id,
+                  chapterId: chapter.id,
+                  childName: route.params.childName
+                })
+              }
             >
               <Text style={styles.cardTitle}>{chapter.title}</Text>
               <Text style={styles.cardType}>{chapter.type === 'video' ? 'Video' : 'Story'}</Text>

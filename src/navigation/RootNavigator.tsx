@@ -15,10 +15,10 @@ export type RootStackParamList = {
   ProfileSelection: undefined;
   ParentRoot: undefined;
   ParentMain: undefined;
-  KidsHome: { profileName: string };
-  ModuleDetails: { moduleId: string };
-  Chapter: { chapterId: string };
-  Quiz: { chapterId: string };
+  KidsHome: { childName: string };
+  ModuleDetails: { moduleId: string; childName?: string };
+  Chapter: { moduleId: string; chapterId: string; childName?: string };
+  Quiz: { moduleId: string; chapterId: string; childName?: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -28,20 +28,16 @@ const RootNavigator: React.FC = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Splash"
-        screenOptions={{
-          headerStyle: { backgroundColor: '#020617' },
-          headerTintColor: '#ffffff',
-          headerTitleStyle: { fontSize: 18 },
-        }}
+        screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#0f172a' } }}
       >
-        <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ProfileSelection" component={ProfileSelectionScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ParentRoot" component={ParentRootScreen} options={{ title: 'Choose your roots' }} />
-        <Stack.Screen name="ParentMain" component={ParentMainScreen} options={{ title: 'Parent home' }} />
-        <Stack.Screen name="KidsHome" component={KidsHomeScreen} options={{ title: 'Kids hub' }} />
-        <Stack.Screen name="ModuleDetails" component={ModuleDetailsScreen} options={{ title: 'Module' }} />
-        <Stack.Screen name="Chapter" component={ChapterScreen} options={{ title: 'Chapter' }} />
-        <Stack.Screen name="Quiz" component={QuizScreen} options={{ title: 'Test your quotient' }} />
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="ProfileSelection" component={ProfileSelectionScreen} />
+        <Stack.Screen name="ParentRoot" component={ParentRootScreen} />
+        <Stack.Screen name="ParentMain" component={ParentMainScreen} />
+        <Stack.Screen name="KidsHome" component={KidsHomeScreen} />
+        <Stack.Screen name="ModuleDetails" component={ModuleDetailsScreen} />
+        <Stack.Screen name="Chapter" component={ChapterScreen} />
+        <Stack.Screen name="Quiz" component={QuizScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
