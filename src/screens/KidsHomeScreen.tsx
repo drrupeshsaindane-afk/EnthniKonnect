@@ -15,7 +15,7 @@ const KidsHomeScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.greeting}>Hi {route.params.profileName}</Text>
+        <Text style={styles.greeting}>Hi {route.params.childName}</Text>
         <TouchableOpacity style={styles.continueCard} activeOpacity={0.85}>
           <Text style={styles.continueLabel}>Continue your story</Text>
           <Text style={styles.continueDetail}>Last chapter: Bright festival lights</Text>
@@ -28,7 +28,7 @@ const KidsHomeScreen: React.FC = () => {
               key={module.id}
               style={styles.moduleCard}
               activeOpacity={0.85}
-              onPress={() => navigation.navigate('ModuleDetails', { moduleId: module.id })}
+              onPress={() => navigation.navigate('ModuleDetails', { moduleId: module.id, childName: route.params.childName })}
             >
               <Text style={styles.moduleTitle}>{module.title}</Text>
               <Text style={styles.moduleDescription}>{module.description}</Text>

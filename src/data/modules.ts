@@ -151,8 +151,5 @@ export const getModulesForRoot = (root: RootType): Module[] =>
 export const findModuleById = (id: string): Module | undefined =>
   modules.find((item) => item.id === id);
 
-export const findModuleByChapterId = (chapterId: string): Module | undefined =>
-  modules.find((module) => module.chapters.some((chapter) => chapter.id === chapterId));
-
-export const findChapterById = (chapterId: string): Chapter | undefined =>
-  modules.flatMap((module) => module.chapters).find((chapter) => chapter.id === chapterId);
+export const findChapterById = (moduleId: string, chapterId: string): Chapter | undefined =>
+  findModuleById(moduleId)?.chapters.find((chapter) => chapter.id === chapterId);
